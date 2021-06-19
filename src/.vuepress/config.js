@@ -46,6 +46,10 @@ module.exports = {
         link: '/advanced/'
       },
       {
+        text: 'Examples',
+        link: '/examples/'
+      },
+      {
         text: 'VuePress',
         link: 'https://v1.vuepress.vuejs.org'
       }
@@ -80,8 +84,6 @@ module.exports = {
               'pubsub',
               'pipeline',
               'exclusive-pair',
-              
-              
             ],
           }
         ],
@@ -91,8 +93,21 @@ module.exports = {
             collapsable: true,
             children: [
               '',
-              
-              
+            ],
+          }
+        ],
+        '/examples/' : [{ 
+            title: 'Examples', 
+            children: [
+              '',
+              'JavaScript',
+              'TypeScript'
+            ],
+          }, 
+          {
+            title: 'JavaScript',
+            children: [
+              'simple-req-rep'
             ],
           }
         ],
