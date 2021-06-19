@@ -20,7 +20,7 @@ it's origin and most importantly the soul behind this magic library. This guide 
 It's a simple effort to implement socket patterns in NodeJS and discuss the possibilities.
 
 # Installation 
-'''
+```
 git clone https://github.com/cosmoarunn/zmq-nodejs-guide
 yarn dev
-'''
+```
