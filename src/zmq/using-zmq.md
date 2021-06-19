@@ -6,7 +6,7 @@ When it comes to deciding to write models or messaging patterns in ZMQ, it's pos
 
 But to kick start the app and to see some actions in real time, NodeJS is one of the best choice.
 
-NodeJS is an `asynchronous event-driven` JavaScript runtime. There it is, clearly says that it best suits ZMQ library and it's core functionalities. The extension of zmq using NodeJS is relatively simplified by the NodeJS way of working.
+NodeJS is an `asynchronous event-driven` JavaScript runtime. There it is, clearly says that it best suits ZMQ library and it's core functionalities. The extension of zmq using NodeJS is relatively simplified using the NodeJS way.
 
 It doesn't mean it's limited to NodeJS, since almost every web application written in every other programming language uses sockets one way or the other in order to make content dynamic and provide a first class user experience. 
 
