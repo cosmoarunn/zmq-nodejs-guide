@@ -15,3 +15,6 @@ Heterogeneity - a mouthful but 'bona fide' term to define ZMQ Sockets, because i
 
 If you're interested to learn and work with ZeroMQ, it would be preposterous to continue with out knowing the root and
 it's origin and most importantly the soul behind this magic library. This guide is dedicated to Pieter Hintgens
+
+
+It's a simple effort to 
