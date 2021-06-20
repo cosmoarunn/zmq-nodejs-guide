@@ -23,6 +23,8 @@ For 32 bit windows PCs
 For 64-bit versions,
 
 node-gyp and windows requires Python 2.7 - 3.x does not work. Please install 2.7.
+
+For windows use powershell to run the script
 ### MacOS
 
 ## Typescript: Installing and setting up  environment
