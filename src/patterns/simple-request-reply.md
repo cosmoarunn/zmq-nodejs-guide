@@ -20,6 +20,10 @@ Of course, in real socket messaging it won't be exactly like this. In order to p
 
 Between the server and the pizza that is served to you, one or more workers involved in the process. We can call them 'workers' or 'dealers' since they deal with the server's request and work on it. More on this later.
 
+:::: tabs
+
+::: tab javascript
+#### Javascript implementation of a Req-Rep pattern
 ```
 // Hello World reply server in Node.js
 // Connects REP socket to tcp://*:5560
@@ -38,7 +42,6 @@ rep.on('message', function(msg) {
   }, 1000);
 });
 
-Running the above scripts creats a reply server much like nginx or apache. 
 ```
 The request client, 
 ```
@@ -48,13 +51,13 @@ The request client,
     , requester = zmq.socket('req');
 
     const REPLY_SERVER_ENDPOINT = 'tcp://127.0.0.1:5560'
-
+    
     async function request() { 
         const req = zmq.socket('req')
         req.connect(REPLY_SERVER_ENDPOINT)
 
         await(socket.send('Hello'))
-
+        //usual way of expecting a message from a socket
         try { 
             req.on('message', (res) => {
                 console.log(res)
@@ -66,6 +69,27 @@ The request client,
     }
 
 ```
+:::
 
+::: tab typescript
+#### Typescript implementation of a Req-Rep pattern
+```
+Typescript version
+```
+:::
+
+::::
+
+::: danger Deadlocks
 ** REQ-REP deadlock!!!
-You should aware of a phenomenon called REQ-REP deadlock. 
+You should be aware of a phenomenon called REQ-REP deadlock. If you notice the Request server is enclosed in an async function. Implementation in languages such as C, C++, C# or such requires to handle async requests manually. Luckily, NodeJS takes care of that burden for us.
+
+Hassels of a deadlock includes, 
+- there is no such socket link-management interface exposed to user to test/reset the state of the FSA-to-FSA link in ZeroMQ framework.
+- Loss of data transmitted or simply loss of connectivity between the REQ & REP.
+- Impossible to recover either socket from a deadlock
+- Impossible to reset the sockets when a deadlock happens
+:::
+
+::: tip Hands On
+- run a reply server and console log the events' messages 

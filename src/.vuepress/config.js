@@ -20,7 +20,16 @@ module.exports = {
     ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
     ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }]
   ],
-
+  /**
+   *  The Host parameter
+   * 
+   */
+  host: '0.0.0.0',
+  /**
+   * The Port parameter
+   * 
+   */
+  port : 5500,
   /**
    * Theme configuration, here is the default theme configuration for VuePress.
    *
@@ -118,7 +127,24 @@ module.exports = {
    * Apply plugins，ref：https://v1.vuepress.vuejs.org/zh/plugin/
    */
   plugins: [
+    'tabs',
     '@vuepress/plugin-back-to-top',
     '@vuepress/plugin-medium-zoom',
-  ]
+    'vuepress-plugin-comment',
+    {
+      choosen: 'gitalk', 
+      options: {
+        clientID: 'GitHub Application Client ID',
+        clientSecret: 'GitHub Application Client Secret',
+        repo: 'GitHub repo',
+        owner: 'GitHub repo owner',
+        admin: ['GitHub repo owner and collaborators, only these guys can initialize github issues'],
+        distractionFreeMode: false 
+      }
+    }
+  ],
+
+  markdown: {
+    lineNumbers: true
+  }
 }
