@@ -12,12 +12,17 @@ To learn in depth about ZMQ features, visit [ZeroMQ Wiki](http://wiki.zeromq.org
 
 # Pieter Hintgens - The man behind the magic!
 
+
+
 If you're interested to learn and work with ZeroMQ, it would be preposterous to continue with out knowing the root and it's origin and most importantly the soul behind this magic library.
 
 It's Pieter Hintgens (3 Dec 1962 - 4 Oct 2016) - a belgian software architect, author and past president of [Foundation of a Free Information Infrastructure (FFII)](https://en.wikipedia.org/wiki/Foundation_for_a_Free_Information_Infrastructure). 
+
+<iframe width="828" height="465" src="https://www.youtube.com/embed/0_dfrHxLOrc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 He served as a CEO and chief software designer for iMatix and believed & active in [open standards](https://en.wikipedia.org/wiki/Open_standard) 
 
 His demise is a huge loss to Software Industry.
 
-To learn more about his personality and contributions to our world, I would recommend users to read his books 'Confessions of a Necromancer' and 'Social Architecture'.
+To learn more about his personality and contributions to the programming world, I would recommend users to read his books 'Confessions of a Necromancer' and 'Social Architecture'.
+

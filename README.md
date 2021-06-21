@@ -17,6 +17,8 @@ If you're interested to learn and work with ZeroMQ, it would be preposterous to 
 it's origin and most importantly the soul behind this magic library. This guide is dedicated to Pieter Hintgens
 
 
+
+
 It's a simple effort to implement socket patterns in NodeJS and discuss the possibilities.
 
 # Installation 

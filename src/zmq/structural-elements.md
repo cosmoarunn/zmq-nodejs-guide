@@ -24,10 +24,40 @@ Here's a list of basic building blocks of core ZMQ architecture.
 
 ## Connections
 
-A low level mechanism of sockets reaching out to themselves and initiate a communication among them. It's all taken care in the ZeroMQ library (libzmq) and we experience only the connections by just using a connect command.
+A low level mechanism of sockets reaching out to themselves and initiate a communication among them. It's all taken care under-the-hood in the low level ZeroMQ library (libzmq) and we experience only the connections by just using a connect command.
+
+  
+        publisher.bind(`tcp://127.0.0.1:3000`)
+        subscriber.connect(`tcp://127.0.0.1:3000`)
+    
+
+<mermaid>
+graph LR
+    id1(Rep server)-- Connection --> id2(Req Client)
+    style id1 fill:#f9f,stroke:#333,stroke-width:4px
+    style id2 fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
+</mermaid>
+
+## Messages
+The information that is transported from one endpoint to another. The Message is bi-directional. If a client request something, it's still a Message. A standard ZMQ message contains three basic frames, viz., Identity Frame, Empty delimiter Frame and Data Frame. 
+
 
 ## Message Envelope
 To keep track of the activities of sockets and debugging, a protocol is needed to send the messages across the sockets. The message is added with chunks of data to form an envelope which identifies the requesting socket and the responding server. To achieve a message envelope, a set of frames are used as a Message Envelope.
+<mermaid>
+erDiagram
+    MESSAGE ||--o{ SOCKET : allows
+    MESSAGE {
+        string identity
+        string empty-delimiter
+        string data
+    }
+    REPLY ||--o{ SOCKET : is
+    REPLY {
+        string delimiter
+        string Data
+    }
+</mermaid>
 
 ### Frames
 - Frame 1: identity of the connection in string form such as 'ABC'
@@ -82,19 +112,78 @@ some combinations are invalid and not to be used in order to avoid undesired res
 
 ## Brokers
 
-A Broker socket is a well decorated Router that keeps track of Dealer/Worker sockets and dispatch the requests once they're ready and available. It's mainly a network proxy that handles the requests and dispatch them to Dealer or Worker sockets.
+A Broker socket is a well decorated Router that keeps track of Dealer/Worker sockets and Client/Request sockets to dispatch the requests once they're ready and available. It's mainly uses a network proxy that handles the requests and dispatch them to respective Dealer or Worker sockets. It accepts connections from both clients and worker sockets readily and holds the requests in a single queue. When the Broker receives replies from the workers, it then sends the replies back to respective clients.
 
 Broker can connect and communicate another broker as well. And thus, load distribution is handled and scalability is achieved as the requirements grow.
 
-# Publishers
+#### Load Balancing Broker
 
-## Subscribers
+Load Balancing Brokers comprises of a Frontend Router which identifies and accepts client requests and proxy requests to a Backend Router which dispatches the request to worker and proxy the results back. The proxy that acts between the Frontend Router and Backend Router is the **Load Balancer**
+<mermaid>
+flowchart TB
+  subgraph LOAD BALANCING BROKER
+    direction TB
+    subgraph CLIENTS
+        direction LR
+        subgraph C1
+            direction TB
+            c1(Client) -->r1(Request)
+        end
+        direction TB
+        subgraph C2
+            direction TB
+            c2(Client) -->r2(Request)
+        end
+        direction TB
+        subgraph C3
+            direction TB
+            c3(Client) -->r3(Request)
+        end
+    end
+    subgraph LOAD_BALANCER
+        direction BT
+        i(Proxy) -->be(Router BackEnd)
+        be(Router BackEnd) -->i(Proxy)
+        i(Load Balancing Proxy) -->fe(Router FrontEnd)
+        fe(Router FrontEnd) --> i(Load Balancing Proxy)
+        style i fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
+    end
+    subgraph WORKERS
+        direction LR
+        subgraph W1
+            direction BT
+            w1(Worker) --> rr1(Request)
+            w1(Worker) --> rp2(Reply)
+        end
+        direction TB
+        subgraph W2
+            direction BT
+            w2(Worker)  --> rr2(Request/Reply)
+        end
+        direction TB
+        subgraph W3
+            direction BT
+            w3(Worker)  --> rr3(Request/Reply)
+        end
+    end
+  end
+  CLIENTS --> LOAD_BALANCER --> WORKERS
+  WORKERS --> LOAD_BALANCER --> CLIENTS
+</mermaid>
+
+# Publishers & Subcribers
+
+Publishers are much like a radio or TV station or even NewsPapers. The subscribers are clients who start the channel would receive live broadcast events and miss everything that the publisher did broadcast before. It's a complex one Reply to many Requests scenario but there is no request made to the Publisher. Many things could go wrong. So, a Publisher doesn't hold any responsibility for who's connecting to it and who's leaving the network. 
+
+The Publisher has many channels of which interested Subscriber can connect and receive live data. It's Subscriber's responsibilty to ensure connectivity and verify the data it received. 
+
+There are several different types of Publisher exists with several differnt issues to be resolved. We will learn more about some of them in out [Patterns](http://localhost:5500/patterns/pubsub.html) section.
 
 
 
 ## Topology
 
-An arrangment of a network using several combinations of ZMQ sockets that performs a specific set of tasks.
+An arrangment of a network using several combinations of ZMQ sockets that performs a specific set of tasks. A network is a global term which still can define many topologies together under a single roof. Topology mainly defines the number of structural elements used in a context and the arrangement of these elements and routes and connections made amongst them.
 
 
 > ***Points to Ponder***
