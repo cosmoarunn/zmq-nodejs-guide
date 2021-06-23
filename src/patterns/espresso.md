@@ -1,1 +1,1 @@
-# Simple Request-Reply Socket
+# Espresso - PubSub Pattern

@@ -25,7 +25,9 @@ with that being said, NodeJS simplifies many complex routines of ZMQ and offers 
 
 ## Typescript or Javascript?
 
-It's just Javascript, absolutely! Javascript is easy to learn and use even for a someone new to the programming world and relatively 'go with examples' by copy-paste or to read and understand the code. We can start working with Javascript and slowly switch over to Typescript which provides a neat and better way of programming Javascript. As we all know, the final compiled Typescript code is just pure Javascript.
+Typescript is transpiler which provides a compiled output in Javascript. It's more traceable and convenient to code when you're switching to larger projects where a heavy typing is needed. It's better you start with Typescript. Javascript is easy to learn and use even for a someone new to the programming world and relatively 'go with examples' by copy-paste or to read and understand the code. We can start working with Javascript and slowly switch over to Typescript which provides a neat and better way of programming Javascript. As we all know, the final compiled Typescript code is just pure Javascript.
+
+>Wish everything goes with Typescript than just Javascript!
 
 
 ## Pre-requisites
@@ -35,3 +37,11 @@ To get started,
 - A windows 10 or linux machine installed with NodeJS and NVM (Node Virtual Machine)
 - A handy IDE like VSCode, NetBeans or Eclipse etc
 - A basic knowledge in programming Javascript/Typescript using NodeJS
+
+::: warning Question: Can I write my own HTTP Server in ZeroMQ?
+> **Of course, you can write your own HTTP Server in ZeroMQ. If any other socket can do the job, ZeroMQ can do it even much faster and better. ZeroMQ uses frames in message transport. It's the protocol. For instance, A HTTP protocol uses / as a delimiter where as ZeroMQ socket uses a number or the length of the frame. ZeroMQ provides an option called ZMQ_Router_RAW, with which you can read/write data without ZeroMQ framing.**
+:::
+
+
+
+

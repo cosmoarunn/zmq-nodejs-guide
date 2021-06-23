@@ -14,13 +14,30 @@ Fundamental block of Core ZMQ Architecture employs protocols,
  - SOCKS5 
  - TOR
 
- since version 4.2, libzmq supports UDP in Unicast and Multicast modes.
+ since version 4.2, libzmq supports UDP in Unicast and Multicast modes. ZMQ provies a set of unicast transports (inproc, ipc and tcp) and multicast transports (epgm, pgm). Multicast is an advanced technique and will be dealt in the upcoming chapters.
 
-Eventhough as many protocols it can talk to, libzmq (the core ZMQ library) is most widely using and focussing TCP protocol - the 'lingua franca' of distributed computing.
+Eventhough as many protocols it can talk to, libzmq (the core ZMQ library) is most widely using and focussing TCP protocol - the 'lingua franca' of distributed computing. TCP is `disconnected TCP' transport which is elastic, portable and fast enough for most socket patterns. 
+
+::: tip Disconnected TCP
+In ZeroMQ's Socket Universe, the TCP transport doesn't require that the endpoint exists before you connect to it. Clients and servers can connect and bind at any time, can go and comeback, and it remains transparent to applications a nd helnce the name 'Disconnected TCP'
+:::
 
 A single socket may have many outgoing and many incoming connections. All connections happen in the background and ZeroMQ will automatically reconnect if the network connection is interrupted or lost. 
 
-Here's a list of basic building blocks of core ZMQ architecture.
+Sockets have many types. They work together in `messaging patterns`. The ability of `mix-n-match` socket connections and patterns gives ZeroMQ the ability and power of **message queuing system**.
+
+The plug-n-play feature of ZeroMQ makes it like you play Lego's interlocking toy bricks.
+
+Here's a list of basic building blocks and terminologies of core ZMQ architecture.
+
+## Endpoints
+
+A combination of protocol and addresses. This is where a server bind to and listen to client sockets. ZeroMQ sockets stands netural about which side binds and which side connects. It's you who decide that pattern. With a clear idea of,
+
+- Server Endpoint: A static endpoint of the topology where it listens
+- Client Endpoint: The dynamic endpoint where clients come and go, crash or  wait and stall.
+
+In a topology, the server with a static endpoint may become a client of another server as well.
 
 ## Connections
 
@@ -29,7 +46,11 @@ A low level mechanism of sockets reaching out to themselves and initiate a commu
   
         publisher.bind(`tcp://127.0.0.1:3000`)
         subscriber.connect(`tcp://127.0.0.1:3000`)
+
+Imagine we start a client **before** starting a server. In any available socket programming, We would eventually end up with a network failure. Because a client without a server doesn't make sense in our traditional networking world. 
     
+
+
 
 <mermaid>
 graph LR
@@ -38,8 +59,12 @@ graph LR
     style id2 fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
 </mermaid>
 
+However, ZeroMQ allows you to start a client without starting a server. Seems sorcery, ain't it? The logic is simple. When you call a server socket's `bind` method, the endpoint just becomes available even the server is still starting up. The client with a `connect` method feels the connection exists and the client node can start to communicate to the server socket. But at somepoint, the server should become alive before client messages queue up and stacked on a himalayan range at the server end. Once the bind is complete, the endpoint is functional, ZeroMQ delivers messages efficiently. 
+
+Thats how ZeroMQ sockets are programmed to exhibit intelligence to avoid our usual mistakes in the distributed computing.
+
 ## Messages
-The information that is transported from one endpoint to another. The Message is bi-directional. If a client request something, it's still a Message. A standard ZMQ message contains three basic frames, viz., Identity Frame, Empty delimiter Frame and Data Frame. 
+The information that is transported from one endpoint to another. The Message is bi-directional.  A standard ZMQ message contains three basic frames, viz., Identity Frame, Empty delimiter Frame and Data Frame. 
 
 
 ## Message Envelope
@@ -65,6 +90,10 @@ erDiagram
 - Frame 3: the original data that is communicated (data frame)
 
 On occasions, a minimal envelope, just a delimiter and data frame would suffice the requirement. But when it is debugging time in a heavy topology, we don't want hassle.
+
+## Layers
+
+### Proxies
 
 ## Request Sockets - REQ 
 

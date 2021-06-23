@@ -90,10 +90,13 @@ module.exports = {
             children: [
               '',
               'simple-request-reply',
+              'exclusive-pair',
               'pubsub',
+              'espresso',
+              'pubsubhub',
               'pipeline',
               'exclusive-pair',
-            ],
+            ],  
           }
         ],
         '/advanced/' : [
@@ -102,6 +105,7 @@ module.exports = {
             collapsable: true,
             children: [
               '',
+              'protocol-handling',
             ],
           }
         ],
