@@ -28,3 +28,7 @@ It's a simple effort to implement socket patterns in NodeJS and discuss the poss
 git clone https://github.com/cosmoarunn/zmq-nodejs-guide
 yarn dev
 ```
+
+# Preview
+
+The contents of this guide is made available on a dev server at [zmq-nodejs](https://zmq-nodejs.arunpanneerselvam.com)
