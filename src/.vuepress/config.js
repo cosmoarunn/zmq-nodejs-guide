@@ -24,7 +24,7 @@ module.exports = {
    *  The Host parameter
    * 
    */
-  host: '0.0.0.0',
+  host: '0.0.0.0',// 'https://zmq-nodejs.arunpanneerselvam.com' || '0.0.0.0',
   /**
    * The Port parameter
    * 
@@ -47,7 +47,7 @@ module.exports = {
         link: '/zmq/',
       },
       {
-        text: 'Architecture',
+        text: 'Patterns',
         link: '/patterns/'
       },
       {
@@ -90,10 +90,13 @@ module.exports = {
             children: [
               '',
               'simple-request-reply',
+              'exclusive-pair',
               'pubsub',
+              'espresso',
+              'pubsubhub',
               'pipeline',
               'exclusive-pair',
-            ],
+            ],  
           }
         ],
         '/advanced/' : [
@@ -102,6 +105,7 @@ module.exports = {
             collapsable: true,
             children: [
               '',
+              'protocol-handling',
             ],
           }
         ],
@@ -134,10 +138,10 @@ module.exports = {
     {
       choosen: 'gitalk', 
       options: {
-        clientID: 'GitHub Application Client ID',
-        clientSecret: 'GitHub Application Client Secret',
-        repo: 'GitHub repo',
-        owner: 'GitHub repo owner',
+        clientID: '118ef613991564fe204f',
+        clientSecret: 'a7a7c6561aa26624183a913f6d50adb73dab6085 ',
+        repo: 'https://github.com/cosmoarunn/zmq-nodejs-guide',
+        owner: 'https://github.com/cosmoarunn',
         admin: ['GitHub repo owner and collaborators, only these guys can initialize github issues'],
         distractionFreeMode: false 
       }
